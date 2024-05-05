@@ -9,6 +9,7 @@ CONFIG += c++17
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 SOURCES += \
+    addcalendar.cpp \
     calendarlist.cpp \
     createcalendardialog.cpp \
     inputdatadialog.cpp \
@@ -17,6 +18,7 @@ SOURCES += \
     mainwindow.cpp
 
 HEADERS += \
+    addcalendar.h \
     calendarlist.h \
     createcalendardialog.h \
     inputdatadialog.h \
@@ -24,6 +26,7 @@ HEADERS += \
     mainwindow.h
 
 FORMS += \
+    addcalendar.ui \
     calendarlist.ui \
     createcalendardialog.ui \
     inputdatadialog.ui \

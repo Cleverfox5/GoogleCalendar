@@ -18,6 +18,7 @@ calendarList::~calendarList()
 void calendarList::getID(QString login)
 {
     socket = new QTcpSocket(this);
+    log = login;
 
     connect(socket, &QTcpSocket::readyRead, this, &calendarList::slotReadyRead);
     connect(socket, &QTcpSocket::disconnected, socket, &QTcpSocket::deleteLater);
@@ -37,9 +38,6 @@ void calendarList::SendToServer(QString str, quint16 curr_mode)
         out.device()->seek(0);
         out << quint16(Data.size() - 2*sizeof(quint16));
         socket->write(Data);
-    }
-    else if (curr_mode == 5){
-
     }
 }
 
@@ -81,6 +79,28 @@ void calendarList::slotReadyRead()
                     //Выделение новго дескриптора и проверка, чтобы он не совпадал с использующимися сейчас!
                 }
             }
+            else if (mode == 5){
+                connect(this, &calendarList::sendData, add_calendar, &AddCalendar::getData);
+
+                emit sendData(str, log);
+                /*int len = str.size();
+                QString curr_str = "";
+                for (int i = 0; i < len; i++){
+                    if (str[i] == ' '){
+                        ui->listWidget->addItem(curr_str);
+                        curr_str = "";
+                    }
+                    else if (i == len - 1){
+                        ui->listWidget->addItem(curr_str);
+                    }
+                    else{
+                        curr_str.push_back(str[i]);
+                    }
+                }*/
+            }
+            else if (mode == 6){
+                ui->listWidget->addItem(str);
+            }
         }
     }
     else{
@@ -90,6 +110,10 @@ void calendarList::slotReadyRead()
 
 void calendarList::on_pushButton_clicked()
 {
+    add_calendar = new AddCalendar(this);
+    add_calendar->show();
 
+    connect(this, &calendarList::sendDescriptor, add_calendar, &AddCalendar::getDescriptor);
+
+    emit sendDescriptor(socket, log);
 }
-

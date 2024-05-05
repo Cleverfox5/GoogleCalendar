@@ -3,6 +3,7 @@
 
 #include <QDialog>
 #include <QTcpSocket>
+#include "addcalendar.h"
 
 namespace Ui {
 class calendarList;
@@ -24,7 +25,12 @@ private:
     void SendToServer(QString str, quint16 curr_mode);
     quint16 nextBlockSize;
     quint16 mode;
+    AddCalendar *add_calendar;
+    QString log;
 
+signals:
+    void sendDescriptor(QTcpSocket * soc, QString login);
+    void sendData(QString str, QString login);
 
 public slots:
     void getID(QString login);

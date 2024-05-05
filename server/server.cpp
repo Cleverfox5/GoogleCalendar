@@ -3,6 +3,8 @@
 #include <QSqlQueryModel>
 #include <QVector>
 
+
+
 server::server()
 {
     if (this->listen(QHostAddress::Any, 2323)){
@@ -166,6 +168,7 @@ void server::slotReadyRead(){
             else if (mode == 4){// !!!Добавление провекри, что данный сокет не используется сейчас!!!
                 QSqlQuery query;
                 QString str;
+                nextBlockSize = 0;
                 in >> str;
                 query.prepare("UPDATE UserList SET Descriptor = :descriptor WHERE Login = :login");
                 query.bindValue(":descriptor", socket->socketDescriptor());
@@ -177,6 +180,128 @@ void server::slotReadyRead(){
                     qDebug() << "Ошибка выполнения запроса:";
                     SendToClient("False", 4, socket);
                 }
+            }
+            else if (mode == 5){
+                QSqlQuery query;
+                QString str;
+                QString table;
+                QString column;
+                nextBlockSize = 0;//на этом всй держится забуду записать сервак рухнет
+                QString curr_str;
+                in >> str;
+                int len = str.size();
+                for (int i = 0; i < len; i++){
+                    if (str[i] == ' '){
+                        table = curr_str;
+                        curr_str = "";
+                    }
+                    else if (i == len - 1){
+                        curr_str.push_back(str[i]);
+                        column = curr_str;
+                    }
+                    else{
+                        curr_str.push_back(str[i]);
+                    }
+                }
+                qDebug() << table;
+                qDebug() << column;
+                if (query.exec("SELECT " + column + " FROM " + table)){
+                    QString Data;
+                    while (query.next()) {
+                        QString value = query.value(0).toString(); // Используйте индекс столбца для извлечения значения
+                        qDebug() << value;
+                        Data.push_back(value);
+                        Data.push_back(" ");
+                    }
+                    Data.chop(1);
+                    SendToClient(Data, 5, socket);
+
+                }
+                else{
+                    qDebug() << "неверный запрос";
+                }
+            }
+            else if (mode == 6){//Добавление нового календаря
+                QString str;
+                QVector<QString> calendar_data;
+                QString curr_str;
+                in >> str;
+                int len = str.size();
+                nextBlockSize = 0;
+                for (int i = 0; i < len; i++){
+                    if (str[i] == ' '){
+                        calendar_data.append(curr_str);
+                        qDebug() << curr_str;
+                        curr_str = "";
+                    }
+                    else if (i == len - 1){
+                        curr_str.push_back(str[i]);
+                        calendar_data.append(curr_str);
+                        qDebug() << curr_str;
+
+                    }
+                    else{
+                        curr_str.push_back(str[i]);
+                    }
+                }
+
+                QVector<int> id_members;
+                QString name = calendar_data[0];
+
+                query->prepare("SELECT id FROM UserList WHERE Login = :login");
+                query->bindValue(":login", calendar_data[1]);
+
+                if(!query->exec())
+                {
+                    qDebug("id creator не получены");
+                }
+
+                query->next();
+
+                int id_creator = query->value(0).toInt();
+
+                for (int i = 2; i < calendar_data.size(); i++){
+                    query->prepare("SELECT id FROM UserList WHERE Nickname = :nickname");
+                    query->bindValue(":nickname", calendar_data[i]);
+                    if(!query->exec())
+                        qDebug("id пользователей не получены");
+                    query->next();
+                    id_members.append(query->value(0).toInt());
+                }
+
+                if(!query->exec())
+                {
+                    qDebug("id пользователей не получены");
+                }
+
+                query->prepare("INSERT INTO GlobalCalendarslist (creator_id, calendar_name) VALUES (?, ?)");
+
+                query->addBindValue(id_creator);
+                query->addBindValue(name);
+
+                if(query->exec())
+                {
+                    qDebug("Календарь успешно добавлен");
+                }
+                else
+                {
+                    qDebug("Календарь не удалось добавить");
+                }
+
+                int calendar_id = query->lastInsertId().toInt();
+
+                for (int i = 0; i < id_members.size(); i++){
+                    query->prepare("INSERT INTO CalendarMembers (calendar_id, user_id) VALUES (?, ?)");
+                    query->addBindValue(calendar_id);
+                    query->addBindValue(id_members[i]);
+                    if(!query->exec()){
+                        qDebug("Не удалось удалить пользователя");
+                    }
+
+                }
+
+
+                SendToClient(name + " " + QString::number(calendar_id), 6, socket);
             }
             mode = 0;
             break;
@@ -203,11 +328,4 @@ void server::SendToClient(QString str, quint16 curr_mode, QTcpSocket * curr_sock
     }
 
     curr_socket->write(Data);
-    //out << str;
-
-
-
-    /*for (int i =0; i < Sockets.size(); i++){
-        Sockets[i]->write(Data);
-    }*/
 }

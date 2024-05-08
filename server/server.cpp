@@ -32,7 +32,7 @@ server::server()
     query->exec("CREATE TABLE GlobalCalendarslist (id INTEGER PRIMARY KEY AUTOINCREMENT, creator_id INTEGER,calendar_name TEXT, FOREIGN KEY(creator_id) REFERENCES UserList(id))");
     query->exec("CREATE TABLE CalendarMembers (calendar_id INTEGER,user_id INTEGER,FOREIGN KEY(calendar_id) REFERENCES GlobalCalendarslist(id),FOREIGN KEY(user_id) REFERENCES UserList(id))");
 
-    query->exec("CREATE TABLE Events (id INTEGER PRIMARY KEY AUTOINCREMENT,calendar_id INTEGER NOT NULL, title TEXT NOT NULL,description TEXT,location TEXT,type TEXT,priority INTEGER,start_date DATETIME,end_date DATETIME,FOREIGN KEY (calendar_id) REFERENCES GlobalCalendarslist(id) )");
+    query->exec("CREATE TABLE Events (id INTEGER PRIMARY KEY AUTOINCREMENT, calendar_id INTEGER NOT NULL,title TEXT NOT NULL, description TEXT, location TEXT, type TEXT, priority TEXT, start_date DATE, start_time TIME, end_date DATE, end_time TIME, FOREIGN KEY (calendar_id) REFERENCES GlobalCalendarslist(id))");
     query->exec("CREATE TABLE EventParticipants (event_id INTEGER,user_id INTEGER,is_informed INTEGER DEFAULT 0,FOREIGN KEY (event_id) REFERENCES Events(id),FOREIGN KEY (user_id) REFERENCES UserList(id))");
     query->exec("CREATE TABLE EventInformants (event_id INTEGER,user_id INTEGER,FOREIGN KEY (event_id) REFERENCES Events(id),FOREIGN KEY (user_id) REFERENCES UserList(id))");
 
@@ -166,18 +166,76 @@ void server::slotReadyRead(){
                 }
             }
             else if (mode == 4){// !!!Добавление провекри, что данный сокет не используется сейчас!!!
-                QSqlQuery query;
                 QString str;
                 nextBlockSize = 0;
                 in >> str;
-                query.prepare("UPDATE UserList SET Descriptor = :descriptor WHERE Login = :login");
-                query.bindValue(":descriptor", socket->socketDescriptor());
-                query.bindValue(":login", str);
-                if (query.exec()) {
-                    SendToClient("True", 4, socket);
+                query->prepare("UPDATE UserList SET Descriptor = :descriptor WHERE Login = :login");
+                query->bindValue(":descriptor", socket->socketDescriptor());
+                query->bindValue(":login", str);
+                if (query->exec()) {
+                    QString Data;
+                    query->prepare("SELECT id FROM UserList WHERE Login = :login");
+                    query->bindValue(":login", str);
+
+                    if(!query->exec())
+                    {
+                        qDebug("id creator не получен");
+                    }
+
+                    query->next();
+
+                    int id_creator = query->value(0).toInt();
+
+                    query->prepare("SELECT calendar_name, id FROM GlobalCalendarslist WHERE creator_id = :creator_id");
+                    query->bindValue(":creator_id", id_creator);
+
+                    if(!query->exec())
+                    {
+                        qDebug("не удалось добавить календарь");
+                    }
+                    else{
+                        while(query->next()){
+                            Data.push_back("*" + query->value(0).toString() + " "  + query->value(1).toString() + " ");
+                        }
+                        if (Data.size() != 0){
+                            Data.chop(1);
+                        }
+                    }
+
+                    QVector<QString> calendars_id;
+
+                    query->prepare("SELECT calendar_id FROM CalendarMembers WHERE user_id = :creator_id");
+                    query->bindValue(":creator_id", id_creator);
+
+                    if(!query->exec())
+                    {
+                        qDebug("не удалось получить id календаря");
+                    }
+                    else{
+                        while(query->next()){
+                            calendars_id.push_back(query->value(0).toString());
+                        }
+                    }
+
+                    for (int i = 0; i < calendars_id.size(); i++){
+                        query->prepare("SELECT calendar_name FROM GlobalCalendarslist WHERE id = :calendar_id");
+                        query->bindValue(":calendar_id", calendars_id[i]);
+
+                        if(!query->exec())
+                        {
+                            qDebug("не удалось добавить календарь");
+                        }
+                        else{
+                            query->next();
+                            Data.push_back(" " + query->value(0).toString() + " " + calendars_id[i]);
+                        }
+                    }
+
+                    SendToClient(Data, 4, socket);
+
                 }
                 else{
-                    qDebug() << "Ошибка выполнения запроса:";
+                    qDebug() << "Ошибка выполнения запроса";
                     SendToClient("False", 4, socket);
                 }
             }
@@ -208,7 +266,7 @@ void server::slotReadyRead(){
                 if (query.exec("SELECT " + column + " FROM " + table)){
                     QString Data;
                     while (query.next()) {
-                        QString value = query.value(0).toString(); // Используйте индекс столбца для извлечения значения
+                        QString value = query.value(0).toString();
                         qDebug() << value;
                         Data.push_back(value);
                         Data.push_back(" ");
@@ -301,7 +359,7 @@ void server::slotReadyRead(){
                 }
 
 
-                SendToClient(name + " " + QString::number(calendar_id), 6, socket);
+                SendToClient("*" + name + " " + QString::number(calendar_id), 6, socket);
             }
             mode = 0;
             break;

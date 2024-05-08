@@ -11,7 +11,9 @@ CONFIG += c++17
 SOURCES += \
     addcalendar.cpp \
     calendarlist.cpp \
+    calendarwindow.cpp \
     createcalendardialog.cpp \
+    creatingevents.cpp \
     inputdatadialog.cpp \
     loginform.cpp \
     main.cpp \
@@ -20,7 +22,9 @@ SOURCES += \
 HEADERS += \
     addcalendar.h \
     calendarlist.h \
+    calendarwindow.h \
     createcalendardialog.h \
+    creatingevents.h \
     inputdatadialog.h \
     loginform.h \
     mainwindow.h
@@ -28,7 +32,9 @@ HEADERS += \
 FORMS += \
     addcalendar.ui \
     calendarlist.ui \
+    calendarwindow.ui \
     createcalendardialog.ui \
+    creatingevents.ui \
     inputdatadialog.ui \
     loginform.ui \
     mainwindow.ui

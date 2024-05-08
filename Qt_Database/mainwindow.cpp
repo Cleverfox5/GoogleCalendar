@@ -11,8 +11,6 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
-    // Скрываем кнопку "Создать календарь" при инициализации главного окна
-    //ui->createCalendarButton->setVisible(false);
 }
 
 MainWindow::~MainWindow()

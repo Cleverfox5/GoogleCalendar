@@ -16,7 +16,7 @@ AddCalendar::~AddCalendar()
 
 void AddCalendar::on_pushButton_clicked()
 {
-    if (ui->lineEditName->text() != "" && !ui->lineEditName->text().contains(" ")){//проверка на соотвествие
+    if (ui->lineEditName->text() != "" && !ui->lineEditName->text().contains(" ") && !ui->lineEditName->text().contains("*")){//проверка на соотвествие
         QList<QListWidgetItem *> selectedItems = ui->listWidget->selectedItems();
         QString name_log_and_selected_users = ui->lineEditName->text() + " " + log;
         for (auto item : selectedItems) {
@@ -29,8 +29,11 @@ void AddCalendar::on_pushButton_clicked()
         accept();
     }
     else{//вывод предупреждения
-        //Не все поля заполнены или в названии не должно быть пробелов
+        //Не все поля заполнены или в названии не должно быть пробелов, звёздочек
+
+        //не предупреждение!!!
         ui->label->setText("Едирить твою налево");
+        //
     }
 }
 

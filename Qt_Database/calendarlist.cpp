@@ -8,6 +8,8 @@ calendarList::calendarList(QWidget *parent) :
     ui(new Ui::calendarList)
 {
     ui->setupUi(this);
+    add_calendar = new AddCalendar(this);
+    calendar_window = new CalendarWindow(this);
 }
 
 calendarList::~calendarList()
@@ -72,11 +74,34 @@ void calendarList::slotReadyRead()
                 //ui->listWidget->addItem(str);
             }
             else if (mode == 4){
-                if (str == "True"){
-                    //Ура успех
+
+                if (str == "False"){
+                    //Не успех, не ура
                 }
                 else{
-                    //Выделение новго дескриптора и проверка, чтобы он не совпадал с использующимися сейчас!
+                    int len = str.size();
+                    QString curr_str = "";
+                    int counter = 0;
+                    for (int i = 0; i < len; i++){
+                        if (str[i] == ' '){
+                            counter++;
+                            if (counter == 2){
+                                ui->listWidget->addItem(curr_str);
+                                curr_str = "";
+                                counter = 0;
+                            }
+                            else{
+                                curr_str.push_back(str[i]);
+                            }
+                        }
+                        else if (i == len - 1){
+                            curr_str.push_back(str[i]);
+                            ui->listWidget->addItem(curr_str);
+                        }
+                        else{
+                            curr_str.push_back(str[i]);
+                        }
+                    }
                 }
             }
             else if (mode == 5){
@@ -104,12 +129,13 @@ void calendarList::slotReadyRead()
         }
     }
     else{
-        //Сообщение: отсутствует соединение!
+        // !!Сообщение: отсутствует соединение!!
     }
 }
 
 void calendarList::on_pushButton_clicked()
 {
+    delete add_calendar;
     add_calendar = new AddCalendar(this);
     add_calendar->show();
 
@@ -117,3 +143,18 @@ void calendarList::on_pushButton_clicked()
 
     emit sendDescriptor(socket, log);
 }
+
+void calendarList::on_listWidget_clicked(const QModelIndex &index)//index оставляем, ибо такова структура on_listWidget_clicked
+{
+    QString selected_item = ui->listWidget->currentItem()->text();
+
+    delete calendar_window;
+    calendar_window = new CalendarWindow(this);
+    calendar_window->show();
+
+    connect(this, &calendarList::SendCalendarInformation, calendar_window, &CalendarWindow::GetCalendarInformation);
+
+    //Открытие календаря(передача сокета, имени календаря, автор каленадря или нет, id календаря)
+    emit SendCalendarInformation(socket, selected_item);
+}
+

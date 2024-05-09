@@ -37,6 +37,9 @@
      <layout class="QHBoxLayout" name="horizontalLayout">
       <item>
        <widget class="QPushButton" name="pushButton_tudema">
+        <property name="styleSheet">
+         <string notr="true">background-color: white;</string>
+        </property>
         <property name="text">
          <string>&lt;--</string>
         </property>
@@ -77,6 +80,9 @@
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_sudema">
+        <property name="styleSheet">
+         <string notr="true">background-color: white;</string>
+        </property>
         <property name="text">
          <string>--&gt;</string>
         </property>
@@ -166,6 +172,9 @@ background-color: white;</string>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_addEvent">
+        <property name="styleSheet">
+         <string notr="true">background-color: white;</string>
+        </property>
         <property name="text">
          <string>Добавить событие</string>
         </property>

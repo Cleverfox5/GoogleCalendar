@@ -13,12 +13,6 @@ MainWindow::MainWindow(QWidget *parent)
     ui->setupUi(this);
 }
 
-MainWindow::~MainWindow()
-{
-    delete ui;
-}
-
-
 void MainWindow::on_pushButton_clicked() //кнопка зарегестрироваться
 {
     //model->insertRow(model->rowCount()); //появляется новая строка в таблице
@@ -76,4 +70,10 @@ void MainWindow::on_createCalendarButton_clicked()
 
 void MainWindow::getLogin(QString log){
     login = log;
+}
+
+MainWindow::~MainWindow()
+{
+    delete ui;
+    delete calendars;
 }

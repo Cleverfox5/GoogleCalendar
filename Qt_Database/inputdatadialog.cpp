@@ -13,6 +13,7 @@ InputDataDialog::InputDataDialog(QWidget *parent) :
 InputDataDialog::~InputDataDialog()
 {
     delete ui;
+    delete socket;
 }
 
 void InputDataDialog::on_saveButton_clicked()

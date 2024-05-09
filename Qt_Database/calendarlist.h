@@ -33,7 +33,7 @@ private:
 signals:
     void sendDescriptor(QTcpSocket * soc, QString login);
     void sendData(QString str, QString login);
-    void SendCalendarInformation(QTcpSocket * soc, QString calendar_information);
+    void SendCalendarInformation(QTcpSocket * soc, QString calendar_information, QString login);
 
 public slots:
     void getID(QString login);

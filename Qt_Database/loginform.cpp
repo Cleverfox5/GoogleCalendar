@@ -10,11 +10,6 @@ LoginForm::LoginForm(QWidget *parent) :
     ui->setupUi(this);
 }
 
-LoginForm::~LoginForm()
-{
-    delete ui;
-}
-
 void LoginForm::on_loginButton_clicked()
 {
     login = ui->loginLineEdit->text();
@@ -91,3 +86,8 @@ void LoginForm::on_cancelButton_clicked()
     reject();
 }
 
+LoginForm::~LoginForm()
+{
+    delete ui;
+    delete socket;
+}

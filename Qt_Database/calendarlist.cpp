@@ -12,11 +12,6 @@ calendarList::calendarList(QWidget *parent) :
     calendar_window = new CalendarWindow(this);
 }
 
-calendarList::~calendarList()
-{
-    delete ui;
-}
-
 void calendarList::getID(QString login)
 {
     socket = new QTcpSocket(this);
@@ -155,6 +150,13 @@ void calendarList::on_listWidget_clicked(const QModelIndex &index)//index ост
     connect(this, &calendarList::SendCalendarInformation, calendar_window, &CalendarWindow::GetCalendarInformation);
 
     //Открытие календаря(передача сокета, имени календаря, автор каленадря или нет, id календаря)
-    emit SendCalendarInformation(socket, selected_item);
+    emit SendCalendarInformation(socket, selected_item, log);
 }
 
+calendarList::~calendarList()
+{
+    delete ui;
+    delete add_calendar;
+    delete calendar_window;
+    delete socket;
+}

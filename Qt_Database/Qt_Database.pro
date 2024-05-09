@@ -17,7 +17,8 @@ SOURCES += \
     inputdatadialog.cpp \
     loginform.cpp \
     main.cpp \
-    mainwindow.cpp
+    mainwindow.cpp \
+    weekwindow.cpp
 
 HEADERS += \
     addcalendar.h \
@@ -27,7 +28,8 @@ HEADERS += \
     creatingevents.h \
     inputdatadialog.h \
     loginform.h \
-    mainwindow.h
+    mainwindow.h \
+    weekwindow.h
 
 FORMS += \
     addcalendar.ui \
@@ -37,7 +39,8 @@ FORMS += \
     creatingevents.ui \
     inputdatadialog.ui \
     loginform.ui \
-    mainwindow.ui
+    mainwindow.ui \
+    weekwindow.ui
 
 # Default rules for deployment.
 qnx: target.path = /tmp/$${TARGET}/bin

@@ -31,13 +31,16 @@ void CreatingEvents::on_SaveButton_clicked()
         QString  Location= ui->LocationLineEdit->text();
         QString  Type= ui->TypeLineEdit->text();
         QString  Priority= ui->PriorityLineEdit->text();
-        QString Start = ui->StartDateTimeEdit->text();
-        QString  End= ui->EndDateTimeEdit->text();
-
+        QString StartDate = ui->StartDateEdit->text();
+        QString StartTime= ui->StartTimeEdit->text();
+        QString EndDate = ui->EndDateEdit->text();
+        QString EndTime= ui->EndTimeEdit->text();
+        QString All = Title + "/" + Description + "/" + Location + "/" + Type + "/" + Priority + "/" + StartDate + "/"+ StartTime + "/" + EndDate+ "/"+ EndTime + "/" + log;
         for (auto item : selectedItems) {
-            Title+= " " + item->text();
+            All+= "/" + item->text();
         }
-        SendToServer(Title + " " + Description + " " + Location + " " + Type + " " + Priority + " " + Start + " " + End+ " " + log, 20);
+        qDebug() << "All:" << All;
+        SendToServer(All, 20);
 
         accept();
     }
@@ -45,12 +48,14 @@ void CreatingEvents::on_SaveButton_clicked()
         //Не все поля заполнены или в названии не должно быть пробелов
         ui->label->setText("?");
     }
-
 }
+
+
+
 void CreatingEvents::getDescriptor(QTcpSocket * soc, QString login){//передача сокета с клиента в окно
     socket = soc;
     log = login;
-    SendToServer("UserList Nickname", 5); //передача обрабатываемой таблицы и
+    SendToServer("UserList Nickname", 21); //передача обрабатываемой таблицы и
     //столбца на сервер для выгрузки ников всех пользователей
 
     //нам нужны только ники из определенного календаря
@@ -59,6 +64,8 @@ void CreatingEvents::getDescriptor(QTcpSocket * soc, QString login){//перед
 
 void CreatingEvents::getData(QString str){
     qDebug() << "Received data from server: " << str; // Выводим полученные данные в консоль
+    //ui->ParticipantslistWidget->clear(); // Очищаем список перед добавлением новых пользователей
+
     int len = str.size();
     QString curr_str = "";
     for (int i = 0; i < len; i++){
@@ -80,7 +87,7 @@ void CreatingEvents::SendToServer(QString str, quint16 curr_mode) //отправ
     Data.clear();
     QDataStream out(&Data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_6);
-    if (curr_mode == 5 || curr_mode == 20){
+    if (curr_mode == 21 || curr_mode == 20){
         out << quint16(0) << curr_mode << str;
         out.device()->seek(0);
         out << quint16(Data.size() - 2*sizeof(quint16));

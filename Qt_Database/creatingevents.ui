@@ -6,28 +6,54 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>782</width>
-    <height>539</height>
+    <width>834</width>
+    <height>557</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
   <layout class="QGridLayout" name="gridLayout">
-   <item row="0" column="0">
-    <widget class="QLabel" name="label">
+   <item row="5" column="0">
+    <widget class="QLabel" name="label_6">
      <property name="text">
-      <string>Название</string>
+      <string>Приоритет</string>
      </property>
     </widget>
    </item>
-   <item row="0" column="1">
-    <widget class="QLineEdit" name="TitleLineEdit"/>
+   <item row="7" column="3">
+    <widget class="QComboBox" name="comboBox">
+     <item>
+      <property name="text">
+       <string>Без повторений</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Каждый день</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Раз в неделю</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Раз в месяц</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>Раз в год</string>
+      </property>
+     </item>
+    </widget>
    </item>
-   <item row="0" column="2">
-    <widget class="QLabel" name="label_8">
+   <item row="10" column="1">
+    <widget class="QPushButton" name="CancelButton">
      <property name="text">
-      <string>Выбрать участников события</string>
+      <string>Отмена</string>
      </property>
     </widget>
    </item>
@@ -38,11 +64,32 @@
      </property>
     </widget>
    </item>
-   <item row="1" column="1">
-    <widget class="QTextEdit" name="DescriptionTextEdit"/>
+   <item row="2" column="1">
+    <widget class="QLineEdit" name="LocationLineEdit"/>
    </item>
-   <item row="1" column="2" colspan="2">
-    <widget class="QListWidget" name="ParticipantslistWidget"/>
+   <item row="4" column="0">
+    <widget class="QLabel" name="label_5">
+     <property name="text">
+      <string>Тип</string>
+     </property>
+    </widget>
+   </item>
+   <item row="10" column="3">
+    <widget class="QPushButton" name="SaveButton">
+     <property name="text">
+      <string>Сохранить</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QLabel" name="label_9">
+     <property name="text">
+      <string>Выбрать информируемые лица</string>
+     </property>
+    </widget>
+   </item>
+   <item row="4" column="1">
+    <widget class="QLineEdit" name="TypeLineEdit"/>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_4">
@@ -51,71 +98,117 @@
      </property>
     </widget>
    </item>
-   <item row="2" column="1">
-    <widget class="QLineEdit" name="LocationLineEdit"/>
-   </item>
-   <item row="3" column="0">
-    <widget class="QLabel" name="label_5">
+   <item row="0" column="0">
+    <widget class="QLabel" name="label">
      <property name="text">
-      <string>Тип</string>
+      <string>Название</string>
      </property>
     </widget>
    </item>
-   <item row="3" column="1">
-    <widget class="QLineEdit" name="TypeLineEdit"/>
-   </item>
-   <item row="4" column="0">
-    <widget class="QLabel" name="label_6">
+   <item row="6" column="3">
+    <widget class="QLabel" name="label_10">
      <property name="text">
-      <string>Приоритет</string>
+      <string>Периодичность события</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
      </property>
     </widget>
    </item>
-   <item row="4" column="1">
-    <widget class="QLineEdit" name="PriorityLineEdit"/>
+   <item row="5" column="1">
+    <widget class="QComboBox" name="PrioritycomboBox">
+     <item>
+      <property name="text">
+       <string>1</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>2</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>3</string>
+      </property>
+     </item>
+     <item>
+      <property name="text">
+       <string>4</string>
+      </property>
+     </item>
+    </widget>
    </item>
-   <item row="5" column="0">
+   <item row="1" column="1" colspan="2">
+    <widget class="QTextEdit" name="DescriptionTextEdit"/>
+   </item>
+   <item row="0" column="3">
+    <widget class="QLabel" name="label_8">
+     <property name="text">
+      <string>Выбрать участников события</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QLineEdit" name="TitleLineEdit"/>
+   </item>
+   <item row="6" column="0">
     <widget class="QLabel" name="label_3">
      <property name="text">
       <string>Дата начала</string>
      </property>
     </widget>
    </item>
-   <item row="6" column="0">
+   <item row="6" column="2">
     <widget class="QLabel" name="label_7">
      <property name="text">
-      <string>Дата окончания</string>
-     </property>
-    </widget>
-   </item>
-   <item row="5" column="1">
-    <widget class="QDateEdit" name="StartDateEdit"/>
-   </item>
-   <item row="6" column="1">
-    <widget class="QDateEdit" name="EndDateEdit"/>
-   </item>
-   <item row="5" column="2">
-    <widget class="QTimeEdit" name="StartTimeEdit"/>
-   </item>
-   <item row="6" column="2">
-    <widget class="QTimeEdit" name="EndTimeEdit"/>
-   </item>
-   <item row="7" column="1">
-    <widget class="QPushButton" name="CancelButton">
-     <property name="text">
-      <string>Отмена</string>
+      <string>Окончание</string>
      </property>
     </widget>
    </item>
    <item row="7" column="2">
-    <widget class="QPushButton" name="SaveButton">
-     <property name="text">
-      <string>Сохранить</string>
+    <widget class="QTimeEdit" name="EndTimeEdit"/>
+   </item>
+   <item row="7" column="1">
+    <widget class="QTimeEdit" name="StartTimeEdit"/>
+   </item>
+   <item row="7" column="0">
+    <widget class="QDateEdit" name="StartDateEdit">
+     <property name="dateTime">
+      <datetime>
+       <hour>15</hour>
+       <minute>0</minute>
+       <second>0</second>
+       <year>2024</year>
+       <month>4</month>
+       <day>30</day>
+      </datetime>
      </property>
     </widget>
    </item>
+   <item row="1" column="3" rowspan="5">
+    <widget class="QListWidget" name="ParticipantslistWidget"/>
+   </item>
+   <item row="1" column="4" rowspan="5">
+    <widget class="QListWidget" name="InformedPersonslistWidget"/>
+   </item>
   </layout>
  </widget>
+ <tabstops>
+  <tabstop>TitleLineEdit</tabstop>
+  <tabstop>DescriptionTextEdit</tabstop>
+  <tabstop>ParticipantslistWidget</tabstop>
+  <tabstop>InformedPersonslistWidget</tabstop>
+  <tabstop>LocationLineEdit</tabstop>
+  <tabstop>TypeLineEdit</tabstop>
+  <tabstop>PrioritycomboBox</tabstop>
+  <tabstop>StartDateEdit</tabstop>
+  <tabstop>StartTimeEdit</tabstop>
+  <tabstop>EndTimeEdit</tabstop>
+  <tabstop>comboBox</tabstop>
+  <tabstop>CancelButton</tabstop>
+  <tabstop>SaveButton</tabstop>
+ </tabstops>
  <resources/>
  <connections/>
 </ui>

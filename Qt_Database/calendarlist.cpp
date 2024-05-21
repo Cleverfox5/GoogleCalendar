@@ -2,6 +2,7 @@
 #include "ui_calendarlist.h"
 #include <QString>
 #include <QTime>
+#include "calendarwindow.h"
 
 calendarList::calendarList(QWidget *parent) :
     QDialog(parent),
@@ -30,7 +31,7 @@ void calendarList::SendToServer(QString str, quint16 curr_mode)
     Data.clear();
     QDataStream out(&Data, QIODevice::WriteOnly);
     out.setVersion(QDataStream::Qt_6_6);
-    if (curr_mode == 4){
+    if (curr_mode != 1){
         out << quint16(0) << curr_mode << str;
         out.device()->seek(0);
         out << quint16(Data.size() - 2*sizeof(quint16));
@@ -121,6 +122,17 @@ void calendarList::slotReadyRead()
             else if (mode == 6){
                 ui->listWidget->addItem(str);
             }
+            else if (mode == 7){
+                //CalendarWindow::getEvents
+                disconnect(this, &calendarList::sendSignal, calendar_window, &CalendarWindow::getEvents);
+                connect(this, &calendarList::sendSignal, calendar_window, &CalendarWindow::getEvents);
+                emit sendSignal(str);
+            }
+            else if (mode == 21){
+                disconnect(this, &calendarList::sendBrockerMembers, calendar_window, &CalendarWindow::getBrockerMembers);
+                connect(this, &calendarList::sendBrockerMembers, calendar_window, &CalendarWindow::getBrockerMembers);
+                emit sendBrockerMembers(str);
+            }
         }
     }
     else{
@@ -128,7 +140,7 @@ void calendarList::slotReadyRead()
     }
 }
 
-void calendarList::on_pushButton_clicked()
+void calendarList::on_pushButton_clicked()//Нажали на добавить календарь
 {
     delete add_calendar;
     add_calendar = new AddCalendar(this);

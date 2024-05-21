@@ -11,32 +11,13 @@ MainWindow::MainWindow(QWidget *parent)
     , ui(new Ui::MainWindow)
 {
     ui->setupUi(this);
+    input_data_dialog = new InputDataDialog(this);
 }
 
 void MainWindow::on_pushButton_clicked() //кнопка зарегестрироваться
 {
-    //model->insertRow(model->rowCount()); //появляется новая строка в таблице
-    //ui->pushButton->hide(); // Скрыть кнопку после нажатия
-    InputDataDialog inputDataDialog;
-    if(inputDataDialog.exec() == QDialog::Accepted)
-    {
-        // Вывести сообщение об успешной регистрации или выполнить другие действия
-
-        //displayDatabase();
-    }
-}
-
-void MainWindow::displayDatabase() //вывод базы данных
-{
-    QSqlQueryModel *queryModel = new QSqlQueryModel(this);
-    queryModel->setQuery("SELECT * FROM UserList"); // SQL-запрос для выборки всех записей из таблицы UserList
-
-    // Создайте виджет для отображения таблицы данных
-    QTableView *tableView = new QTableView(this);
-    tableView->setModel(queryModel);
-
-    // Отображение виджета таблицы данных в главном окне
-    setCentralWidget(tableView);
+    input_data_dialog = new InputDataDialog(this);
+    input_data_dialog->show();
 }
 
 void MainWindow::on_loginButton_clicked()
@@ -76,4 +57,5 @@ MainWindow::~MainWindow()
 {
     delete ui;
     delete calendars;
+    delete input_data_dialog;
 }

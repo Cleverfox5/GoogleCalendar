@@ -18,9 +18,9 @@
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
    <item row="0" column="2">
-    <widget class="QPushButton" name="pushButton_11">
+    <widget class="QPushButton" name="pushButton_week">
      <property name="styleSheet">
-      <string notr="true">background-color: #CCCCC;</string>
+      <string notr="true">background-color: #CCCCCC;</string>
      </property>
      <property name="text">
       <string>week</string>
@@ -93,7 +93,7 @@ background-color: white;</string>
     </widget>
    </item>
    <item row="0" column="1">
-    <widget class="QPushButton" name="pushButton_10">
+    <widget class="QPushButton" name="pushButton_month">
      <property name="styleSheet">
       <string notr="true">background-color: white;</string>
      </property>
@@ -115,9 +115,9 @@ background-color: white;</string>
         </property>
         <layout class="QVBoxLayout" name="verticalLayout">
          <item>
-          <widget class="QPushButton" name="pushButton">
+          <widget class="QPushButton" name="pushButton_1">
            <property name="styleSheet">
-            <string notr="true">background_color: white;</string>
+            <string notr="true">background-color: white;</string>
            </property>
            <property name="text">
             <string/>
@@ -125,7 +125,38 @@ background-color: white;</string>
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidget"/>
+          <widget class="QLabel" name="label_2">
+           <property name="text">
+            <string>Мои</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_1">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_3">
+           <property name="text">
+            <string>Других</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_1_1">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -139,7 +170,7 @@ background-color: white;</string>
          <item>
           <widget class="QPushButton" name="pushButton_2">
            <property name="styleSheet">
-            <string notr="true">background_color: white;</string>
+            <string notr="true">background-color: white;</string>
            </property>
            <property name="text">
             <string/>
@@ -147,7 +178,38 @@ background-color: white;</string>
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidget_2"/>
+          <widget class="QLabel" name="label_4">
+           <property name="text">
+            <string>Мои</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_2">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_5">
+           <property name="text">
+            <string>Других</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_2_2">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -161,7 +223,7 @@ background-color: white;</string>
          <item>
           <widget class="QPushButton" name="pushButton_3">
            <property name="styleSheet">
-            <string notr="true">background_color: white;</string>
+            <string notr="true">background-color: white;</string>
            </property>
            <property name="text">
             <string/>
@@ -169,7 +231,38 @@ background-color: white;</string>
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidget_3"/>
+          <widget class="QLabel" name="label_6">
+           <property name="text">
+            <string>Мои</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_3">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_7">
+           <property name="text">
+            <string>Других</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_3_3">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -183,7 +276,7 @@ background-color: white;</string>
          <item>
           <widget class="QPushButton" name="pushButton_4">
            <property name="styleSheet">
-            <string notr="true">background_color: white;</string>
+            <string notr="true">background-color: white;</string>
            </property>
            <property name="text">
             <string/>
@@ -191,7 +284,38 @@ background-color: white;</string>
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidget_4"/>
+          <widget class="QLabel" name="label_8">
+           <property name="text">
+            <string>Мои</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_4">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_9">
+           <property name="text">
+            <string>Других</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_4_4">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -205,7 +329,7 @@ background-color: white;</string>
          <item>
           <widget class="QPushButton" name="pushButton_5">
            <property name="styleSheet">
-            <string notr="true">background_color: white;</string>
+            <string notr="true">background-color: white;</string>
            </property>
            <property name="text">
             <string/>
@@ -213,7 +337,38 @@ background-color: white;</string>
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidget_5"/>
+          <widget class="QLabel" name="label_10">
+           <property name="text">
+            <string>Мои</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_5">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_11">
+           <property name="text">
+            <string>Других</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_5_5">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -227,7 +382,7 @@ background-color: white;</string>
          <item>
           <widget class="QPushButton" name="pushButton_6">
            <property name="styleSheet">
-            <string notr="true">background_color: white;</string>
+            <string notr="true">background-color: white;</string>
            </property>
            <property name="text">
             <string/>
@@ -235,7 +390,38 @@ background-color: white;</string>
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidget_6"/>
+          <widget class="QLabel" name="label_12">
+           <property name="text">
+            <string>Мои</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_6">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_13">
+           <property name="text">
+            <string>Других</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_6_6">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -249,7 +435,7 @@ background-color: white;</string>
          <item>
           <widget class="QPushButton" name="pushButton_7">
            <property name="styleSheet">
-            <string notr="true">background_color: white;</string>
+            <string notr="true">background-color: white;</string>
            </property>
            <property name="text">
             <string/>
@@ -257,7 +443,38 @@ background-color: white;</string>
           </widget>
          </item>
          <item>
-          <widget class="QListWidget" name="listWidget_7"/>
+          <widget class="QLabel" name="label_14">
+           <property name="text">
+            <string>Мои</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_7">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QLabel" name="label_15">
+           <property name="text">
+            <string>Других</string>
+           </property>
+           <property name="alignment">
+            <set>Qt::AlignCenter</set>
+           </property>
+          </widget>
+         </item>
+         <item>
+          <widget class="QListWidget" name="listWidget_7_7">
+           <property name="styleSheet">
+            <string notr="true">background-color: white;</string>
+           </property>
+          </widget>
          </item>
         </layout>
        </widget>
@@ -266,7 +483,7 @@ background-color: white;</string>
     </widget>
    </item>
    <item row="0" column="3">
-    <widget class="QPushButton" name="pushButton_12">
+    <widget class="QPushButton" name="pushButton_day">
      <property name="styleSheet">
       <string notr="true">background-color: white;</string>
      </property>
@@ -276,7 +493,7 @@ background-color: white;</string>
     </widget>
    </item>
    <item row="0" column="0">
-    <widget class="QPushButton" name="pushButton_9">
+    <widget class="QPushButton" name="pushButton_calendarName">
      <property name="styleSheet">
       <string notr="true">background-color: white;</string>
      </property>
@@ -289,10 +506,10 @@ background-color: white;</string>
  </widget>
  <tabstops>
   <tabstop>pushButton_8</tabstop>
-  <tabstop>pushButton_9</tabstop>
-  <tabstop>pushButton_10</tabstop>
-  <tabstop>pushButton_12</tabstop>
-  <tabstop>pushButton_11</tabstop>
+  <tabstop>pushButton_calendarName</tabstop>
+  <tabstop>pushButton_month</tabstop>
+  <tabstop>pushButton_day</tabstop>
+  <tabstop>pushButton_week</tabstop>
  </tabstops>
  <resources/>
  <connections/>

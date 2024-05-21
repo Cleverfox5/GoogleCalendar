@@ -11,8 +11,9 @@ CreatingEvents::CreatingEvents(QWidget *parent) :
 {
     ui->setupUi(this);
 
-    // Установка режима множественного выбора для ParticipantslistWidget
+    // Установка режима множественного выбора
     ui->ParticipantslistWidget->setSelectionMode(QAbstractItemView::MultiSelection);
+    ui->InformedPersonslistWidget->setSelectionMode(QAbstractItemView::MultiSelection);
 
 }
 
@@ -21,61 +22,91 @@ CreatingEvents::~CreatingEvents()
     delete ui;
 }
 
-
 void CreatingEvents::on_SaveButton_clicked()
 {
-    if (ui->TitleLineEdit->text() != "" && !ui->TitleLineEdit->text().contains(" ")){//проверка на соотвествие
+    if (ui->TitleLineEdit->text() != "") {
         QList<QListWidgetItem *> selectedItems = ui->ParticipantslistWidget->selectedItems();
+        QList<QListWidgetItem *> selectedItems_2 = ui->InformedPersonslistWidget->selectedItems();
         QString Title = ui->TitleLineEdit->text();
         QString Description = ui->DescriptionTextEdit->toPlainText();
-        QString  Location= ui->LocationLineEdit->text();
-        QString  Type= ui->TypeLineEdit->text();
-        QString  Priority= ui->PriorityLineEdit->text();
+        QString Location = ui->LocationLineEdit->text();
+        QString Type = ui->TypeLineEdit->text();
+        QString Priority = ui->PrioritycomboBox->currentText();
         QString StartDate = ui->StartDateEdit->text();
-        QString StartTime= ui->StartTimeEdit->text();
-        QString EndDate = ui->EndDateEdit->text();
-        QString EndTime= ui->EndTimeEdit->text();
-        QString All = Title + "/" + Description + "/" + Location + "/" + Type + "/" + Priority + "/" + StartDate + "/"+ StartTime + "/" + EndDate+ "/"+ EndTime + "/" + log;
-        for (auto item : selectedItems) {
-            All+= "/" + item->text();
+        QString StartTime = ui->StartTimeEdit->text();
+        QString EndTime = ui->EndTimeEdit->text();
+        QString FrequencyOfTheEvent = ui->comboBox->currentText();
+        if(FrequencyOfTheEvent=="Без повторений"){
+            FrequencyOfTheEvent="1";
         }
-        qDebug() << "All:" << All;
-        SendToServer(All, 20);
+        else if(FrequencyOfTheEvent=="Каждый день"){
+            FrequencyOfTheEvent="2";
+        }
+        else if(FrequencyOfTheEvent=="Раз в неделю"){
+            FrequencyOfTheEvent="3";
+        }
+        else if(FrequencyOfTheEvent=="Раз в месяц"){
+            FrequencyOfTheEvent="4";
+        }
+        else if(FrequencyOfTheEvent=="Раз в год"){
+            FrequencyOfTheEvent="5";
+        }
+        QString Participants = "";
+        QString InformedPersons = "";
+
+        QString combinedData = Title + "/" + Description + "/" + Location + "/" + Type + "/" + Priority + "/" + StartDate + "/" + StartTime + "/" + EndTime +"/"+FrequencyOfTheEvent + "/" + QString::number(calendar_id) + "/";
+
+        for (auto item : selectedItems) {
+            combinedData += item->text() + " ";
+        }
+        combinedData.chop(1);
+
+        combinedData += "/";
+
+        for (auto item : selectedItems_2) {
+            combinedData += item->text() + " ";
+        }
+        combinedData.chop(1);
+
+        qDebug() << "Combined Data:" << combinedData;
+
+        SendToServer(combinedData, 20);
 
         accept();
     }
-    else{//вывод предупреждения
-        //Не все поля заполнены или в названии не должно быть пробелов
+    else {
         ui->label->setText("?");
     }
 }
 
-
-
-void CreatingEvents::getDescriptor(QTcpSocket * soc, QString login){//передача сокета с клиента в окно
+void CreatingEvents::getStartInformatoin(QTcpSocket * soc, QString login, int calendar_id, int selected_year, int selected_month, int selected_day = 1){//передача сокета с клиента в окно
     socket = soc;
     log = login;
-    SendToServer("UserList Nickname", 21); //передача обрабатываемой таблицы и
-    //столбца на сервер для выгрузки ников всех пользователей
-
-    //нам нужны только ники из определенного календаря
+    this->selected_year = selected_year;
+    this->selected_month = selected_month;
+    this->selected_day = selected_day;
+    this->calendar_id = calendar_id;
+    ui->StartDateEdit->setDate(QDate(selected_year, selected_month, selected_day));
+    SendToServer(QString::number(calendar_id), 21);//запрос на получение списка участников
 }
 
-
-void CreatingEvents::getData(QString str){
+void CreatingEvents::getMembers(QString str){
     qDebug() << "Received data from server: " << str; // Выводим полученные данные в консоль
-    //ui->ParticipantslistWidget->clear(); // Очищаем список перед добавлением новых пользователей
 
     int len = str.size();
     QString curr_str = "";
+    /*ui->ParticipantslistWidget->clear();
+    ui->InformedPersonslistWidget->clear();*/
     for (int i = 0; i < len; i++){
         if (str[i] == ' '){
             ui->ParticipantslistWidget->addItem(curr_str);
+            ui->InformedPersonslistWidget->addItem(curr_str);
             curr_str = "";
         }
         else if (i == len - 1){
             curr_str.push_back(str[i]);
             ui->ParticipantslistWidget->addItem(curr_str);
+            ui->InformedPersonslistWidget->addItem(curr_str);
         }
         else{
             curr_str.push_back(str[i]);
@@ -94,12 +125,8 @@ void CreatingEvents::SendToServer(QString str, quint16 curr_mode) //отправ
         socket->write(Data);
     }
 }
+
 void CreatingEvents::on_CancelButton_clicked()
 {
     reject();
 }
-
-
-
-
-

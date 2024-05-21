@@ -5,8 +5,8 @@
 #include <QDebug>
 #include <QTableView>
 #include <QLabel>
-#include "createcalendardialog.h"
 #include "calendarlist.h"
+#include "inputdatadialog.h"
 
 
 QT_BEGIN_NAMESPACE
@@ -23,7 +23,6 @@ public:
 
 private slots:
     void on_pushButton_clicked();
-    void displayDatabase();
     void on_loginButton_clicked();
     void on_createCalendarButton_clicked();
 
@@ -32,6 +31,7 @@ private:
     Ui::MainWindow *ui;
     QString loggedInUsername;
     calendarList *calendars;
+    InputDataDialog *input_data_dialog;
     int Descriptor;
     QString login;
 

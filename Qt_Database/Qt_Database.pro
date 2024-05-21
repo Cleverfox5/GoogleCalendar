@@ -12,8 +12,8 @@ SOURCES += \
     addcalendar.cpp \
     calendarlist.cpp \
     calendarwindow.cpp \
-    createcalendardialog.cpp \
     creatingevents.cpp \
+    eventwindow.cpp \
     inputdatadialog.cpp \
     loginform.cpp \
     main.cpp \
@@ -24,8 +24,8 @@ HEADERS += \
     addcalendar.h \
     calendarlist.h \
     calendarwindow.h \
-    createcalendardialog.h \
     creatingevents.h \
+    eventwindow.h \
     inputdatadialog.h \
     loginform.h \
     mainwindow.h \
@@ -35,8 +35,8 @@ FORMS += \
     addcalendar.ui \
     calendarlist.ui \
     calendarwindow.ui \
-    createcalendardialog.ui \
     creatingevents.ui \
+    eventwindow.ui \
     inputdatadialog.ui \
     loginform.ui \
     mainwindow.ui \

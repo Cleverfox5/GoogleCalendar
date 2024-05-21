@@ -15,6 +15,7 @@ class server : public QTcpServer
 
 public:
     server();
+    ~server();
     QTcpSocket *socket;
 private:
     QVector <QTcpSocket *> Sockets;

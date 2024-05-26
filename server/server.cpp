@@ -31,14 +31,14 @@ server::server()
     query->exec("CREATE TABLE GlobalCalendarslist (id INTEGER PRIMARY KEY AUTOINCREMENT, creator_id INTEGER,calendar_name TEXT, FOREIGN KEY(creator_id) REFERENCES UserList(id))");
     query->exec("CREATE TABLE CalendarMembers (calendar_id INTEGER,user_id INTEGER,FOREIGN KEY(calendar_id) REFERENCES GlobalCalendarslist(id),FOREIGN KEY(user_id) REFERENCES UserList(id))");
 
-    //query->exec("DROP TABLE IF EXISTS Events"); //удаление таблицы
     query->exec("CREATE TABLE Events (id INTEGER PRIMARY KEY AUTOINCREMENT, calendar_id INTEGER NOT NULL,title TEXT NOT NULL, description TEXT,  location TEXT,  type TEXT, priority TEXT,  date DATE,  start_time TIME,  end_time TIME,FrequencyOfTheEvent TEXT, FOREIGN KEY (calendar_id) REFERENCES GlobalCalendarslist(id))");
 
     query->exec("CREATE TABLE EventParticipants (event_id INTEGER,user_id INTEGER,is_informed INTEGER DEFAULT 0,FOREIGN KEY (event_id) REFERENCES Events(id),FOREIGN KEY (user_id) REFERENCES UserList(id))");
     query->exec("CREATE TABLE EventInformants (event_id INTEGER,user_id INTEGER,FOREIGN KEY (event_id) REFERENCES Events(id),FOREIGN KEY (user_id) REFERENCES UserList(id))");
 
     query->exec("CREATE TABLE Notifications (id INTEGER PRIMARY KEY AUTOINCREMENT, user_id INTEGER, type TEXT, message TEXT, timestamp DATETIME, is_read INTEGER DEFAULT 0, FOREIGN KEY (user_id) REFERENCES UserList(id))");
-
+    //query->exec("DROP TABLE IF EXISTS Messages"); //удаление таблицы
+    query->exec("CREATE TABLE Messages (id INTEGER PRIMARY KEY AUTOINCREMENT, event_id INTEGER, user_id INTEGER, message_text TEXT, send_date DATE, send_time TIME, FOREIGN KEY (user_id) REFERENCES UserList(id), FOREIGN KEY (event_id) REFERENCES Events(id))");
     /*//Данные для ивента
     QString title = "Полить цветок";
     QString description = "This is a test event";
@@ -266,9 +266,11 @@ void server::slotReadyRead(){
                         }
                         else{
                             query->next();
-                            Data.push_back(" " + query->value(0).toString() + " " + calendars_id[i]);
+                            Data.push_back(query->value(0).toString() + " " + calendars_id[i] + " ");
+
                         }
                     }
+                    Data.removeLast();
 
                     SendToClient(Data, 4, socket);
 
@@ -464,6 +466,107 @@ void server::slotReadyRead(){
                 qDebug() << result;
 
                 SendToClient(result, 7, socket);//отправляем списко id событий, их учатсников
+            }
+            else if (mode == 8){
+                QString str, result;
+                in >> str;
+                nextBlockSize = 0;
+                //query->exec("CREATE TABLE Messages (id INTEGER PRIMARY KEY AUTOINCREMENT, event_id INTEGER, user_id INTEGER, message_text TEXT, send_date DATE, send_time TIME, FOREIGN KEY (user_id) REFERENCES UserList(id), FOREIGN KEY (event_id) REFERENCES Event(id))");
+
+                query->prepare("SELECT user_id, message_text, send_date, send_time from Messages WHERE event_id = :event_id");
+                query->bindValue(":event_id", str);
+                if (!query->exec()){
+                    qDebug() << "Не получилось добавить пользователя";
+                }
+                while (query->next()){
+                    QSqlQuery query_in_query;
+                    query_in_query.prepare("SELECT Nickname FROM UserList WHERE user_id = :user_id");
+                    query_in_query.bindValue(":user_id", query->value(0));
+                    if (!query_in_query.exec() || !query_in_query.next()) {
+                        qDebug() << "Не удалось получить nickname пользотвателя";
+                        return;
+                    }
+                    QString current_nickname = query_in_query.value(0).toString();
+                    result += current_nickname + " " + query->value(2).toString() + " " + query->value(3).toString() + " " + query->value(1).toString() + "|";
+                }
+                if (result != "")
+                    result.removeLast();
+
+                qDebug() << result;
+
+                SendToClient(result, 8, socket);
+
+            }
+            else if (mode == 9){
+                QString str, result;
+                in >> str;
+                QVector<QString> mes_parts = str.split("|");
+                QString user = mes_parts[0];
+                QString data = mes_parts[1];
+                QString time = mes_parts[2];
+                QString event_id = mes_parts[3];
+                QString message = mes_parts[4];
+                nextBlockSize = 0;
+                query->prepare("SELECT Nickname, id FROM UserList WHERE Login = :login");
+                query->bindValue(":login", user);
+                if (!query->exec() || !query->next()) {
+                    qDebug() << "Не удалось получить id пользователя";
+                    return;
+                }
+                user = query->value(0).toString();
+                QString user_id = query->value(1).toString();
+                //query->exec("CREATE TABLE Messages (id INTEGER PRIMARY KEY AUTOINCREMENT, event_id INTEGER, user_id INTEGER, message_text TEXT, send_date DATE, send_time TIME, FOREIGN KEY (user_id) REFERENCES UserList(id), FOREIGN KEY (event_id) REFERENCES Event(id))");
+                query->prepare("INSERT INTO Messages (event_id, user_id, message_text, send_date, send_time) VALUES (?, ?, ?, ?, ?)");
+
+                query->addBindValue(event_id);
+                query->addBindValue(user_id);
+                query->addBindValue(message);
+                query->addBindValue(data);
+                query->addBindValue(time);
+
+                if(query->exec())
+                {
+                    qDebug("Сообщение успешно добавлено");
+                }
+                else
+                {
+                    qDebug("Сообщение не удалось добавить");
+                }
+
+                //query->exec("CREATE TABLE Messages (id INTEGER PRIMARY KEY AUTOINCREMENT, event_id INTEGER, user_id INTEGER, message_text TEXT, send_date DATE, send_time TIME, FOREIGN KEY (user_id) REFERENCES UserList(id), FOREIGN KEY (event_id) REFERENCES Event(id))");
+                //query->exec("CREATE TABLE EventParticipants (event_id INTEGER,user_id INTEGER,is_informed INTEGER DEFAULT 0,FOREIGN KEY (event_id) REFERENCES Events(id),FOREIGN KEY (user_id) REFERENCES UserList(id))");
+
+                QVector<QString> id_list;
+                query->prepare("SELECT user_id FROM EventParticipants WHERE event_id = :event_id");
+                query->bindValue(":event_id", event_id);
+                if (!query->exec()) {
+                    qDebug() << "Не удалось получить id пользователя";
+                    return;
+                }
+                while (query->next()){
+                    id_list.append(query->value(0).toString());
+                }
+
+                //query->exec("CREATE TABLE UserList(id INTEGER PRIMARY KEY AUTOINCREMENT , Login TEXT,  Password TEXT, LastName TEXT, FirstName TEXT, MiddleName TEXT, JobTitle TEXT, Department TEXT, Nickname TEXT, Descriptor INTEGER DEFAULT 0)");
+                QVector<QString> Descriptor_list;
+                for (int i = 0; i < id_list.size(); i++){
+                    query->prepare("SELECT Descriptor FROM UserList WHERE id = :id");
+                    query->bindValue(":id", id_list[i]);
+                    if (!query->exec()) {
+                        qDebug() << "Не удалось получить Descriptor пользователя";
+                        return;
+                    }
+                    while (query->next()){
+                        Descriptor_list.append(query->value(0).toString());
+                    }
+                }
+
+                //SendToClient(result, 9, socket);
+
+               /*for (int i = 0; i < Descriptor_list.size(); i++){
+                    socket->setSocketDescriptor(Descriptor_list[i].toLongLong());
+                    SendToClient(result, 9, socket);
+                }*/
             }
             else if (mode == 21){ //получение данных из таблицы
                 QSqlQuery query;

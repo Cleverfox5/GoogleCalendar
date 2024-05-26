@@ -128,6 +128,13 @@ void calendarList::slotReadyRead()
                 connect(this, &calendarList::sendSignal, calendar_window, &CalendarWindow::getEvents);
                 emit sendSignal(str);
             }
+            else if (mode == 8){
+                if (str != ""){
+                    disconnect(this, &calendarList::sendMessages, calendar_window, &CalendarWindow::getMessages);
+                    connect(this, &calendarList::sendMessages, calendar_window, &CalendarWindow::getMessages);
+                    emit sendMessages(str);
+                }
+            }
             else if (mode == 21){
                 disconnect(this, &calendarList::sendBrockerMembers, calendar_window, &CalendarWindow::getBrockerMembers);
                 connect(this, &calendarList::sendBrockerMembers, calendar_window, &CalendarWindow::getBrockerMembers);

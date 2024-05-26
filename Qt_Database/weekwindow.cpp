@@ -6,6 +6,38 @@ WeekWindow::WeekWindow(QWidget *parent) :
     ui(new Ui::WeekWindow)
 {
     ui->setupUi(this);
+    add_functional_to_events();
+    event_window = new EventWindow(this);
+    connect(this, &WeekWindow::sendEventLabel, event_window, &EventWindow::getEventLabel);
+}
+
+void WeekWindow::on_event_clicked(QListWidgetItem *item){
+    QVector<QString> event_parts = item->text().split(" ");
+    QString event_label;
+    for (int i = 0; i < event_parts.size() - 1; i++){
+        event_label += event_parts[i] + " ";
+    }
+    event_label.removeLast();
+    sendEventLabel(socket, event_label, login, calendar_name, calendar_id, event_parts[event_parts.size() - 1].toInt());
+    event_window->show();
+}
+
+void WeekWindow::add_functional_to_events(){
+    QListWidget * list;
+    for (int i = 0; i < 7; i++){
+        list = this->findChild<QListWidget *>("listWidget_" + QString::number(i + 1));
+        connect(list, &QListWidget::itemClicked, this, &WeekWindow::on_event_clicked);
+        if (!list){
+            qDebug() << "Ошибка с ListWisget";
+        }
+    }
+    for (int i = 0; i < 7; i++){
+        list = this->findChild<QListWidget *>("listWidget_" + QString::number(i + 1) + "_" + QString::number(i + 1));
+        connect(list, &QListWidget::itemClicked, this, &WeekWindow::on_event_clicked);
+        if (!list){
+            qDebug() << "Ошибка с ListWisget";
+        }
+    }
 }
 
 void WeekWindow::DrowEvents(QString days[], int start_position, int end_position){
@@ -24,7 +56,7 @@ void WeekWindow::DrowEvents(QString days[], int start_position, int end_position
                 QString adder_name;
                 if (event_arr[event_arr.size() - 1] == "true"){
                     list_widget = this->findChild<QListWidget *>("listWidget_" + QString::number(counter));
-                    for (int k = 0; k < event_arr.size() - 2; k++){
+                    for (int k = 0; k < event_arr.size() - 1; k++){
                         adder_name += event_arr[k] + " ";
                     }
                     adder_name.removeLast();
@@ -81,6 +113,13 @@ void WeekWindow::GetCalendarInformation(QTcpSocket * socket, QString calendar_na
     //this->events_id = events_id;
 }
 
+void WeekWindow::getMessages(QString str)
+{
+    disconnect(this, &WeekWindow::sendMessages, event_window, &EventWindow::getMessages);
+    connect(this, &WeekWindow::sendMessages, event_window, &EventWindow::getMessages);
+    emit sendMessages(str);
+}
+
 WeekWindow::~WeekWindow()
 {
     delete ui;
@@ -90,4 +129,3 @@ void WeekWindow::on_pushButton_month_clicked()
 {
     reject();
 }
-

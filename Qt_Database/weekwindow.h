@@ -37,12 +37,12 @@ private:
 signals:
     void sendEventLabel(QTcpSocket * socket, QString label, QString login, QString calendar_name, int calendar_id, int event_id);
     void sendMessages(QString str);
-    //void sendNewMessage(QString str);
+    void sendNewMessage(QString str);
 
 public slots:
     void GetCalendarInformation(QTcpSocket * socket, QString calendar_name, int calendar_id, bool is_creator, QString login, QString events_id[7], QVector<QString> numbers, int year, QString month, QString days[]);
     void getMessages(QString str);
-    //void getNewMessage(QString str);
+    void getNewMessage(QString str);
 private slots:
     void on_pushButton_month_clicked();
     void on_event_clicked(QListWidgetItem *item);

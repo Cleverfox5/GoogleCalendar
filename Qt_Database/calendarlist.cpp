@@ -135,6 +135,11 @@ void calendarList::slotReadyRead()
                     emit sendMessages(str);
                 }
             }
+            else if (mode == 9){
+                disconnect(this, &calendarList::sendNewMessage, calendar_window, &CalendarWindow::getNewMessage);
+                connect(this, &calendarList::sendNewMessage, calendar_window, &CalendarWindow::getNewMessage);
+                sendNewMessage(str);
+            }
             else if (mode == 21){
                 disconnect(this, &calendarList::sendBrockerMembers, calendar_window, &CalendarWindow::getBrockerMembers);
                 connect(this, &calendarList::sendBrockerMembers, calendar_window, &CalendarWindow::getBrockerMembers);

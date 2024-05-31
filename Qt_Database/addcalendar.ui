@@ -30,25 +30,12 @@
    <item row="1" column="0">
     <widget class="QGroupBox" name="groupBox">
      <property name="styleSheet">
-      <string notr="true">background: white;</string>
+      <string notr="true"/>
      </property>
      <property name="title">
-      <string>Настройка календаря</string>
+      <string/>
      </property>
      <layout class="QGridLayout" name="gridLayout">
-      <item row="0" column="0">
-       <widget class="QLabel" name="label">
-        <property name="text">
-         <string>Имя календаря</string>
-        </property>
-       </widget>
-      </item>
-      <item row="2" column="0" colspan="4">
-       <widget class="QListWidget" name="listWidget"/>
-      </item>
-      <item row="0" column="1" colspan="3">
-       <widget class="QLineEdit" name="lineEditName"/>
-      </item>
       <item row="1" column="1" colspan="2">
        <widget class="QLabel" name="label_3">
         <property name="text">
@@ -56,6 +43,13 @@
         </property>
         <property name="alignment">
          <set>Qt::AlignCenter</set>
+        </property>
+       </widget>
+      </item>
+      <item row="2" column="0" colspan="4">
+       <widget class="QListWidget" name="listWidget">
+        <property name="styleSheet">
+         <string notr="true">background-color: white;</string>
         </property>
        </widget>
       </item>
@@ -85,21 +79,45 @@
         </property>
        </spacer>
       </item>
-      <item row="3" column="3">
-       <widget class="QPushButton" name="pushButton_2">
+      <item row="0" column="0">
+       <widget class="QLabel" name="label">
         <property name="text">
-         <string>Найти</string>
+         <string>Имя календаря</string>
         </property>
        </widget>
       </item>
-      <item row="3" column="0" colspan="3">
-       <widget class="QLineEdit" name="lineEditSerch"/>
+      <item row="0" column="1" colspan="3">
+       <widget class="QLineEdit" name="lineEditName">
+        <property name="styleSheet">
+         <string notr="true">background-color: white;</string>
+        </property>
+       </widget>
       </item>
      </layout>
     </widget>
    </item>
    <item row="2" column="0">
     <widget class="QPushButton" name="pushButton">
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: #12CDD4;
+	font-size: 18px;
+border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+QPushButton:hover { 
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #12CDD4, stop: 1 #a1e1e3 );
+	border: 2px solid black;
+}
+QPushButton:pressed {
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #a1e1e3, stop: 1 #12CDD4);
+	border: 2px solid black;
+}</string>
+     </property>
      <property name="text">
       <string>Создать</string>
      </property>

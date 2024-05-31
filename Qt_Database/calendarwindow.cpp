@@ -210,6 +210,13 @@ void CalendarWindow::getMessages(QString str)
     emit sendMessages(str);
 }
 
+void CalendarWindow::getNewMessage(QString str)
+{
+    disconnect(this, &CalendarWindow::sendNewMessage, week_window, &WeekWindow::getNewMessage);
+    connect(this, &CalendarWindow::sendNewMessage, week_window, &WeekWindow::getNewMessage);
+    emit sendNewMessage(str);
+}
+
 CalendarWindow::~CalendarWindow()
 {
     delete ui;

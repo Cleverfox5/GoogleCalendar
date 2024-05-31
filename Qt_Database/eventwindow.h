@@ -21,7 +21,7 @@ public:
 public slots:
     void getEventLabel(QTcpSocket * socket, QString label, QString login, QString calendar_name, int calendar_id, int event_id);
     void getMessages(QString str);
-    //void getNewMessage(QString str);
+    void getNewMessage(QString str);
 
 private slots:
     void on_pushButton_send_clicked();

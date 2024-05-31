@@ -58,14 +58,14 @@ signals:
     void sendStartInformatoinEvent(QTcpSocket * soc, QString login, int calendar_id, int selected_year, int selected_month, int selected_day);
     void sendMembers(QString str);
     void sendMessages(QString str);
-    //void sendNewMessage(QString str);
+    void sendNewMessage(QString str);
 
 public slots:
     void GetCalendarInformation(QTcpSocket * soc, QString calendar_information, QString login);
     void getBrockerMembers(QString str);
     void getEvents(QString str);
     void getMessages(QString str);
-    //void getNewMessage(QString str);
+    void getNewMessage(QString str);
 
 private slots:
     void on_pushButton_sudema_clicked();

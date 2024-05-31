@@ -13,9 +13,16 @@
   <property name="windowTitle">
    <string>Dialog</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background: #E6E6E6;</string>
+  </property>
   <layout class="QGridLayout" name="gridLayout">
    <item row="3" column="1" colspan="2">
-    <widget class="QLineEdit" name="lastnameLineEdit"/>
+    <widget class="QLineEdit" name="lastnameLineEdit">
+     <property name="styleSheet">
+      <string notr="true">background: white;</string>
+     </property>
+    </widget>
    </item>
    <item row="1" column="0">
     <widget class="QLabel" name="label">
@@ -25,7 +32,11 @@
     </widget>
    </item>
    <item row="5" column="1" colspan="2">
-    <widget class="QLineEdit" name="middlenameLineEdit"/>
+    <widget class="QLineEdit" name="middlenameLineEdit">
+     <property name="styleSheet">
+      <string notr="true">background: white;</string>
+     </property>
+    </widget>
    </item>
    <item row="3" column="0">
     <widget class="QLabel" name="label_3">
@@ -35,7 +46,11 @@
     </widget>
    </item>
    <item row="4" column="1" colspan="2">
-    <widget class="QLineEdit" name="firstnameLineEdit"/>
+    <widget class="QLineEdit" name="firstnameLineEdit">
+     <property name="styleSheet">
+      <string notr="true">background: white;</string>
+     </property>
+    </widget>
    </item>
    <item row="2" column="0">
     <widget class="QLabel" name="label_2">
@@ -45,7 +60,11 @@
     </widget>
    </item>
    <item row="7" column="1" colspan="2">
-    <widget class="QLineEdit" name="departmentLineEdit"/>
+    <widget class="QLineEdit" name="departmentLineEdit">
+     <property name="styleSheet">
+      <string notr="true">background: white;</string>
+     </property>
+    </widget>
    </item>
    <item row="5" column="0">
     <widget class="QLabel" name="label_5">
@@ -63,6 +82,9 @@
    </item>
    <item row="1" column="1" colspan="2">
     <widget class="QLineEdit" name="loginLineEdit">
+     <property name="styleSheet">
+      <string notr="true">background: white;</string>
+     </property>
      <property name="text">
       <string/>
      </property>
@@ -86,16 +108,49 @@
    </item>
    <item row="2" column="1" colspan="2">
     <widget class="QLineEdit" name="passwordLineEdit">
+     <property name="styleSheet">
+      <string notr="true">background: white;</string>
+     </property>
      <property name="text">
       <string/>
      </property>
     </widget>
    </item>
    <item row="6" column="1" colspan="2">
-    <widget class="QLineEdit" name="jobtitleLineEdit"/>
+    <widget class="QLineEdit" name="jobtitleLineEdit">
+     <property name="styleSheet">
+      <string notr="true">background: white;</string>
+     </property>
+    </widget>
    </item>
    <item row="9" column="0">
     <widget class="QPushButton" name="cancelButton">
+     <property name="minimumSize">
+      <size>
+       <width>75</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: #12CDD4;
+	font-size: 18px;
+border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+QPushButton:hover { 
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #12CDD4, stop: 1 #a1e1e3 );
+	border: 2px solid black;
+}
+QPushButton:pressed {
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #a1e1e3, stop: 1 #12CDD4);
+	border: 2px solid black;
+}</string>
+     </property>
      <property name="text">
       <string>Отмена</string>
      </property>
@@ -103,6 +158,32 @@
    </item>
    <item row="9" column="2">
     <widget class="QPushButton" name="saveButton">
+     <property name="minimumSize">
+      <size>
+       <width>120</width>
+       <height>0</height>
+      </size>
+     </property>
+     <property name="styleSheet">
+      <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: #12CDD4;
+	font-size: 18px;
+border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+QPushButton:hover { 
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #12CDD4, stop: 1 #a1e1e3 );
+	border: 2px solid black;
+}
+QPushButton:pressed {
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #a1e1e3, stop: 1 #12CDD4);
+	border: 2px solid black;
+}</string>
+     </property>
      <property name="text">
       <string>Сохранить</string>
      </property>
@@ -129,7 +210,11 @@
     </widget>
    </item>
    <item row="8" column="1" colspan="2">
-    <widget class="QLineEdit" name="nicknameLineEdit"/>
+    <widget class="QLineEdit" name="nicknameLineEdit">
+     <property name="styleSheet">
+      <string notr="true">background: white;</string>
+     </property>
+    </widget>
    </item>
    <item row="8" column="0">
     <widget class="QLabel" name="label_8">

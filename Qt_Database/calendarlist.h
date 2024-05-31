@@ -37,7 +37,7 @@ signals:
     void sendBrockerMembers(QString str);
     void sendSignal(QString str);
     void sendMessages(QString str);
-    //void sendNewMessage(QString str);
+    void sendNewMessage(QString str);
 
 public slots:
     void getID(QString login);

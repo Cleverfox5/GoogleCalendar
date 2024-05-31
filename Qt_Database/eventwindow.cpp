@@ -35,12 +35,21 @@ void EventWindow::getMessages(QString str)
     }
 }
 
+void EventWindow::getNewMessage(QString str)
+{
+    QVector<QString> info = str.split("|");
+    if (info[1] == QString::number(event_id))
+        ui->textBrowser->append(info[0]);
+}
+
 void EventWindow::on_pushButton_send_clicked()
 {
     QString massage = ui->lineEdit->text();
-    if (!massage.contains("|") && massage != ""){
-        SendToServer(login + "|" + QDate::currentDate().toString() + "|" + QTime::currentTime().toString() + "|" + QString::number(event_id) + "|" + massage, 9);
+    if (!massage.contains("|") && massage != "" && !massage.contains("\\")){
+        SendToServer(login + "|" + QDate::currentDate().toString("dd.MM.yy") + "|" + QTime::currentTime().toString("hh:mm") + "|" + QString::number(event_id) + "|" + massage, 9);
+        ui->lineEdit->clear();
     }
+
 }
 
 void EventWindow::SendToServer(QString str, quint16 curr_mode)

@@ -18,18 +18,28 @@ InputDataDialog::~InputDataDialog()
 
 void InputDataDialog::on_saveButton_clicked()
 {
-    user_data[0] = ui->loginLineEdit->text();
-    user_data[1] = ui->passwordLineEdit->text();
-    user_data[2] = ui->lastnameLineEdit->text();
-    user_data[3] = ui->firstnameLineEdit->text();
-    user_data[4] = ui->middlenameLineEdit->text();
-    user_data[5] = ui->jobtitleLineEdit->text();
-    user_data[6] = ui->departmentLineEdit->text();
-    user_data[7] = ui->nicknameLineEdit->text();
-    user_data[8] = "0";
-
-    if(true) //проверочка что всё введено + нет пробелов
+    if(ui->loginLineEdit->text() != "" && ui->passwordLineEdit->text() != "" &&
+        ui->lastnameLineEdit->text() != "" && ui->firstnameLineEdit->text() != "" &&
+        ui->middlenameLineEdit->text() != "" && ui->jobtitleLineEdit->text() != "" &&
+        ui->departmentLineEdit->text() != "" && ui->nicknameLineEdit->text() != "" &&
+        !(ui->loginLineEdit->text().contains(" ") || ui->loginLineEdit->text().contains("|") || ui->loginLineEdit->text().contains("\\") || ui->loginLineEdit->text().contains("/")) &&
+        !(ui->passwordLineEdit->text().contains(" ") || ui->passwordLineEdit->text().contains("|") || ui->passwordLineEdit->text().contains("\\") || ui->passwordLineEdit->text().contains("/")) &&
+        !(ui->lastnameLineEdit->text().contains(" ") || ui->lastnameLineEdit->text().contains("|") || ui->lastnameLineEdit->text().contains("\\") || ui->lastnameLineEdit->text().contains("/")) &&
+        !(ui->firstnameLineEdit->text().contains(" ") || ui->firstnameLineEdit->text().contains("|") || ui->firstnameLineEdit->text().contains("\\") || ui->firstnameLineEdit->text().contains("/")) &&
+        !(ui->middlenameLineEdit->text().contains(" ") || ui->middlenameLineEdit->text().contains("|") || ui->middlenameLineEdit->text().contains("\\") || ui->middlenameLineEdit->text().contains("/")) &&
+        !(ui->jobtitleLineEdit->text().contains(" ") || ui->jobtitleLineEdit->text().contains("|") || ui->jobtitleLineEdit->text().contains("\\") || ui->jobtitleLineEdit->text().contains("/")) &&
+        !(ui->departmentLineEdit->text().contains(" ") || ui->departmentLineEdit->text().contains("|") || ui->departmentLineEdit->text().contains("\\") || ui->departmentLineEdit->text().contains("/")) &&
+        !(ui->nicknameLineEdit->text().contains(" ") || ui->nicknameLineEdit->text().contains("|") || ui->nicknameLineEdit->text().contains("\\") || ui->nicknameLineEdit->text().contains("/"))) //проверочка что всё введено + нет пробелов
     {
+        user_data[0] = ui->loginLineEdit->text();
+        user_data[1] = ui->passwordLineEdit->text();
+        user_data[2] = ui->lastnameLineEdit->text();
+        user_data[3] = ui->firstnameLineEdit->text();
+        user_data[4] = ui->middlenameLineEdit->text();
+        user_data[5] = ui->jobtitleLineEdit->text();
+        user_data[6] = ui->departmentLineEdit->text();
+        user_data[7] = ui->nicknameLineEdit->text();
+        user_data[8] = "0";
         /*if(socket && socket->state() == QAbstractSocket::ConnectedState)
             socket->disconnectFromHost();
         else

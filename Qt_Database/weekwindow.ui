@@ -17,91 +17,6 @@
    <string notr="true">background: #E6E6E6;</string>
   </property>
   <layout class="QGridLayout" name="gridLayout_2">
-   <item row="0" column="2">
-    <widget class="QPushButton" name="pushButton_week">
-     <property name="styleSheet">
-      <string notr="true">background-color: #CCCCCC;</string>
-     </property>
-     <property name="text">
-      <string>week</string>
-     </property>
-    </widget>
-   </item>
-   <item row="2" column="0" colspan="5">
-    <widget class="QGroupBox" name="groupBox_2">
-     <property name="maximumSize">
-      <size>
-       <width>16777215</width>
-       <height>40</height>
-      </size>
-     </property>
-     <property name="title">
-      <string/>
-     </property>
-     <layout class="QGridLayout" name="gridLayout_3">
-      <item row="0" column="1">
-       <widget class="QPushButton" name="pushButton_8">
-        <property name="styleSheet">
-         <string notr="true">background-color: white;</string>
-        </property>
-        <property name="text">
-         <string>Создать событие</string>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0">
-       <spacer name="horizontalSpacer">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="0" column="2">
-       <spacer name="horizontalSpacer_2">
-        <property name="orientation">
-         <enum>Qt::Horizontal</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>40</width>
-          <height>20</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-     </layout>
-    </widget>
-   </item>
-   <item row="0" column="4">
-    <widget class="QLabel" name="label">
-     <property name="styleSheet">
-      <string notr="true">border-radius: 5px;
-background-color: white;</string>
-     </property>
-     <property name="text">
-      <string>chat</string>
-     </property>
-     <property name="alignment">
-      <set>Qt::AlignCenter</set>
-     </property>
-    </widget>
-   </item>
-   <item row="0" column="1">
-    <widget class="QPushButton" name="pushButton_month">
-     <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
-     </property>
-     <property name="text">
-      <string>month</string>
-     </property>
-    </widget>
-   </item>
    <item row="1" column="0" colspan="5">
     <widget class="QGroupBox" name="groupBox">
      <property name="title">
@@ -482,13 +397,13 @@ background-color: white;</string>
      </layout>
     </widget>
    </item>
-   <item row="0" column="3">
-    <widget class="QPushButton" name="pushButton_day">
+   <item row="0" column="2">
+    <widget class="QPushButton" name="pushButton_week">
      <property name="styleSheet">
-      <string notr="true">background-color: white;</string>
+      <string notr="true">background-color: #CCCCCC;</string>
      </property>
      <property name="text">
-      <string>day</string>
+      <string>week</string>
      </property>
     </widget>
    </item>
@@ -502,10 +417,43 @@ background-color: white;</string>
      </property>
     </widget>
    </item>
+   <item row="0" column="3">
+    <widget class="QPushButton" name="pushButton_day">
+     <property name="styleSheet">
+      <string notr="true">background-color: white;</string>
+     </property>
+     <property name="text">
+      <string>day</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="1">
+    <widget class="QPushButton" name="pushButton_month">
+     <property name="styleSheet">
+      <string notr="true">background-color: white;</string>
+     </property>
+     <property name="text">
+      <string>month</string>
+     </property>
+    </widget>
+   </item>
+   <item row="0" column="4">
+    <widget class="QLabel" name="label">
+     <property name="styleSheet">
+      <string notr="true">border-radius: 5px;
+background-color: white;</string>
+     </property>
+     <property name="text">
+      <string>chat</string>
+     </property>
+     <property name="alignment">
+      <set>Qt::AlignCenter</set>
+     </property>
+    </widget>
+   </item>
   </layout>
  </widget>
  <tabstops>
-  <tabstop>pushButton_8</tabstop>
   <tabstop>pushButton_calendarName</tabstop>
   <tabstop>pushButton_month</tabstop>
   <tabstop>pushButton_day</tabstop>

@@ -119,6 +119,12 @@ void WeekWindow::getMessages(QString str)
     connect(this, &WeekWindow::sendMessages, event_window, &EventWindow::getMessages);
     emit sendMessages(str);
 }
+void WeekWindow::getNewMessage(QString str)
+{
+    disconnect(this, &WeekWindow::sendNewMessage, event_window, &EventWindow::getNewMessage);
+    connect(this, &WeekWindow::sendNewMessage, event_window, &EventWindow::getNewMessage);
+    emit sendNewMessage(str);
+}
 
 WeekWindow::~WeekWindow()
 {

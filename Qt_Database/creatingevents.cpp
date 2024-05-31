@@ -24,7 +24,7 @@ CreatingEvents::~CreatingEvents()
 
 void CreatingEvents::on_SaveButton_clicked()
 {
-    if (ui->TitleLineEdit->text() != "") {
+    if (ui->TitleLineEdit->text() != "" && !ui->TitleLineEdit->text().contains("|")) {
         QList<QListWidgetItem *> selectedItems = ui->ParticipantslistWidget->selectedItems();
         QList<QListWidgetItem *> selectedItems_2 = ui->InformedPersonslistWidget->selectedItems();
         QString Title = ui->TitleLineEdit->text();

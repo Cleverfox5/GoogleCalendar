@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>408</width>
-    <height>469</height>
+    <height>487</height>
    </rect>
   </property>
   <property name="minimumSize">
@@ -150,7 +150,7 @@ background-color: white;</string>
      <property name="minimumSize">
       <size>
        <width>0</width>
-       <height>40</height>
+       <height>50</height>
       </size>
      </property>
      <property name="title">
@@ -172,8 +172,31 @@ background-color: white;</string>
       </item>
       <item>
        <widget class="QPushButton" name="pushButton_addEvent">
+        <property name="minimumSize">
+         <size>
+          <width>160</width>
+          <height>0</height>
+         </size>
+        </property>
         <property name="styleSheet">
-         <string notr="true">background-color: white;</string>
+         <string notr="true">QPushButton {
+	border-radius: 10px;
+	background-color: #12CDD4;
+	font-size: 18px;
+border: none;
+    text-align: center;
+    text-decoration: none;
+    font-size: 16px;
+    margin: 4px 2px;
+}
+QPushButton:hover { 
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #12CDD4, stop: 1 #a1e1e3 );
+	border: 2px solid black;
+}
+QPushButton:pressed {
+	background-color: qlineargradient(x1: 0, y1: 0, x2: 0, y2: 1, stop: 0 #a1e1e3, stop: 1 #12CDD4);
+	border: 2px solid black;
+}</string>
         </property>
         <property name="text">
          <string>Добавить событие</string>
